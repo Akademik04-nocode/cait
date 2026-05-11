@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Страница не найдена — Квазар" description="Запрошенная страница не найдена.">
+  <section class="mx-auto max-w-xl text-center">
+    <p class="text-sm font-semibold uppercase tracking-wide text-brand-accent-600">Ошибка 404</p>
+    <h1 class="mt-2 text-3xl font-bold text-brand-primary-900 sm:text-4xl">Страница не найдена</h1>
+    <p class="mt-4 text-slate-600">
+      Похоже, такой страницы не существует или она была перемещена. Вернитесь на
+      главную или откройте каталог.
+    </p>
+    <div class="mt-6 flex justify-center gap-3">
+      <a
+        href="/"
+        class="rounded-md bg-brand-primary-800 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-primary-900"
+      >
+        На главную
+      </a>
+      <a
+        href="/katalog/"
+        class="rounded-md border border-brand-primary-800 px-4 py-2 text-sm font-semibold text-brand-primary-800 hover:bg-brand-primary-50"
+      >
+        В каталог
+      </a>
+    </div>
+  </section>
+</BaseLayout>

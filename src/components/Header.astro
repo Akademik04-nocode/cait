@@ -1,0 +1,35 @@
+---
+const navLinks = [
+  { href: '/katalog/', label: 'Каталог' },
+  { href: '/o-nas/novosti/', label: 'Новости' },
+  { href: '/o-nas/obekty/', label: 'Объекты' },
+  { href: '/sertifikaty/', label: 'Сертификаты' },
+  { href: '/stati/', label: 'Статьи' },
+  { href: '/o-nas/', label: 'О нас' },
+  { href: '/kontakty/', label: 'Контакты' },
+];
+---
+
+<header class="border-b border-slate-200 bg-white">
+  <div class="container flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between">
+    <a href="/" class="flex items-center gap-2 text-brand-primary-800 hover:text-brand-primary-900">
+      <span class="text-2xl font-bold tracking-tight">КВАЗАР</span>
+      <span class="hidden text-sm text-slate-500 md:inline">Санкт-Петербург</span>
+    </a>
+    <nav aria-label="Главное меню" class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+      {
+        navLinks.map((link) => (
+          <a class="text-slate-700 hover:text-brand-accent-600" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="text-sm text-slate-700">
+      <a href="tel:+78124572106" class="font-semibold text-brand-primary-800 hover:text-brand-accent-600">
+        +7 (812) 457-21-06
+      </a>
+      <div class="text-xs text-slate-500">пн-пт 9:00-18:00</div>
+    </div>
+  </div>
+</header>
