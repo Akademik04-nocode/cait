@@ -8,31 +8,54 @@ interface Props {
 }
 
 const { title, slug, brand, priceLabel, image } = Astro.props;
+
+// Pick a stable color variant based on product slug to diversify placeholders
+const variants = [
+  'from-brand-primary-700 to-brand-primary-900',
+  'from-slate-700 to-slate-900',
+  'from-brand-primary-800 to-slate-800',
+  'from-brand-primary-600 to-brand-primary-800',
+  'from-slate-600 to-brand-primary-800',
+];
+const hash = slug.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+const variant = variants[hash % variants.length];
 ---
 
 <a
   href={`/katalog/${slug}/`}
-  class="group block rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md hover:border-brand-primary-200"
+  class="group block overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-lg hover:border-brand-primary-300 hover:-translate-y-0.5"
 >
-  <div class="aspect-square w-full overflow-hidden rounded bg-slate-100 mb-3">
+  <div class="aspect-square w-full overflow-hidden bg-slate-100 relative">
     {image ? (
       <img
         src={image}
         alt={title}
-        class="h-full w-full object-contain transition group-hover:scale-105"
+        class="h-full w-full object-contain p-2 transition group-hover:scale-105"
         loading="lazy"
       />
     ) : (
-      <div class="flex h-full w-full items-center justify-center text-slate-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      <div class={`flex h-full w-full flex-col items-center justify-center p-4 text-center bg-gradient-to-br ${variant} text-white relative overflow-hidden`}>
+        <div class="absolute inset-0 opacity-10">
+          <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <svg class="h-10 w-10 mb-2 text-brand-accent-400 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
         </svg>
+        {brand && (
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-accent-300 relative z-10">{brand}</span>
+        )}
       </div>
     )}
   </div>
-  <h3 class="text-sm font-semibold text-slate-800 line-clamp-2 group-hover:text-brand-primary-700">
-    {title}
-  </h3>
-  {brand && <p class="mt-1 text-xs text-slate-500">{brand}</p>}
-  {priceLabel && <p class="mt-1 text-xs font-medium text-brand-accent-700">{priceLabel}</p>}
+  <div class="p-4">
+    <h3 class="text-sm font-semibold text-slate-900 line-clamp-2 group-hover:text-brand-primary-700 transition-colors min-h-[2.5rem]">
+      {title}
+    </h3>
+    <div class="mt-2 flex items-center justify-between gap-2">
+      {brand && <span class="text-xs font-medium text-slate-500">{brand}</span>}
+      {priceLabel && <span class="text-xs font-semibold text-brand-accent-700">{priceLabel}</span>}
+    </div>
+  </div>
 </a>
