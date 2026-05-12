@@ -1,0 +1,35 @@
+name: Refresh scraped content
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run scraper
+        run: npm run scrape
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "chore: refresh scraped content"
+          branch: chore/refresh-content
+          commit-message: "chore: refresh scraped content from Wayback Machine"
+          body: |
+            Automated content refresh from Wayback Machine snapshots of kvazarcomp.ru.
+          add-paths: |
+            src/content/
+            public/images/
