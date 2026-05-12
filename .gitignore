@@ -3,6 +3,7 @@ dist/
 .astro/
 .scrape-cache/
 scrape-errors.log
+scrape-run.log
 .env
 .env.*
 !.env.example

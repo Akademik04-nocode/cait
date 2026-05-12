@@ -4,14 +4,17 @@ interface Props {
 }
 
 const { product } = Astro.props;
-const formAction = import.meta.env.PUBLIC_FORM_ENDPOINT || 'mailto:info@kvazarcomp.ru';
+const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
+const formAction = formEndpoint || 'mailto:info@kvazarcomp.ru';
+const isMailto = !formEndpoint;
 ---
 
 <form
   action={formAction}
-  method="POST"
+  method={isMailto ? 'GET' : 'POST'}
   class="space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-6"
   data-product={product}
+  data-mailto={isMailto ? 'true' : undefined}
 >
   <h3 class="text-lg font-semibold text-brand-primary-800">Запросить цену</h3>
   {product && <input type="hidden" name="product" value={product} />}
@@ -59,4 +62,31 @@ const formAction = import.meta.env.PUBLIC_FORM_ENDPOINT || 'mailto:info@kvazarco
   >
     Отправить
   </button>
+  <p class="cf-mailto-msg hidden text-sm text-green-700 font-medium"></p>
 </form>
+
+<script>
+  document.querySelectorAll('form[data-mailto="true"]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const f = e.currentTarget as HTMLFormElement;
+      const name = (f.querySelector('[name="name"]') as HTMLInputElement)?.value || '';
+      const phone = (f.querySelector('[name="phone"]') as HTMLInputElement)?.value || '';
+      const email = (f.querySelector('[name="email"]') as HTMLInputElement)?.value || '';
+      const message = (f.querySelector('[name="message"]') as HTMLTextAreaElement)?.value || '';
+      const product = (f.querySelector('[name="product"]') as HTMLInputElement)?.value || '';
+
+      const subject = encodeURIComponent(product ? `Запрос: ${product}` : 'Запрос с сайта');
+      const body = encodeURIComponent(
+        `Имя: ${name}\nТелефон: ${phone}\nEmail: ${email}\n\n${message}`
+      );
+      window.location.href = `mailto:info@kvazarcomp.ru?subject=${subject}&body=${body}`;
+
+      const msg = f.querySelector('.cf-mailto-msg') as HTMLElement;
+      if (msg) {
+        msg.textContent = 'Откройте почтовый клиент для отправки сообщения';
+        msg.classList.remove('hidden');
+      }
+    });
+  });
+</script>

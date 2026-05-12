@@ -70,7 +70,7 @@ if (type === 'product') {
     { title: entry.title, href: `/katalog/${entry.slug}/` },
   ];
   childCategories = allCategories.filter((c) => c.data.parent === entry.slug);
-  matchedProducts = allProducts.filter((p) => p.data.category.includes(entry.slug));
+  matchedProducts = allProducts.filter((p) => p.data.category.split('/').includes(entry.slug));
 } else if (type === 'brand') {
   title = entry.seo?.title || entry.title;
   description = entry.seo?.description || '';
@@ -93,13 +93,22 @@ const jsonLdProduct = type === 'product' ? JSON.stringify({
   image: productImages.length > 0 ? productImages[0] : undefined,
   description: entry.seo?.description || entry.title,
   brand: entry.brand ? { '@type': 'Brand', name: entry.brand } : undefined,
-  offers: {
-    '@type': 'Offer',
-    priceCurrency: 'RUB',
-    price: entry.priceValue ?? 0,
-    availability: 'https://schema.org/InStock',
-    url: `https://kvazarcomp.ru/katalog/${entry.slug}/`,
-  },
+  ...(entry.priceValue != null ? {
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'RUB',
+      price: entry.priceValue,
+      availability: 'https://schema.org/InStock',
+      url: `https://kvazarcomp.ru/katalog/${entry.slug}/`,
+    },
+  } : {
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'RUB',
+      availability: 'https://schema.org/LimitedAvailability',
+      url: `https://kvazarcomp.ru/katalog/${entry.slug}/`,
+    },
+  }),
 }) : null;
 ---
 
