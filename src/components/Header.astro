@@ -1,35 +1,59 @@
 ---
 const navLinks = [
   { href: '/katalog/', label: 'Каталог' },
-  { href: '/o-nas/novosti/', label: 'Новости' },
-  { href: '/o-nas/obekty/', label: 'Объекты' },
+  { href: '/novosti/', label: 'Новости' },
+  { href: '/obekty/', label: 'Объекты' },
   { href: '/sertifikaty/', label: 'Сертификаты' },
   { href: '/stati/', label: 'Статьи' },
-  { href: '/o-nas/', label: 'О нас' },
   { href: '/kontakty/', label: 'Контакты' },
 ];
 ---
 
-<header class="border-b border-slate-200 bg-white">
-  <div class="container flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between">
-    <a href="/" class="flex items-center gap-2 text-brand-primary-800 hover:text-brand-primary-900">
-      <span class="text-2xl font-bold tracking-tight">КВАЗАР</span>
-      <span class="hidden text-sm text-slate-500 md:inline">Санкт-Петербург</span>
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+  <div class="container flex items-center justify-between gap-4 py-3">
+    <a href="/" class="flex items-baseline gap-2 shrink-0">
+      <span class="text-xl md:text-2xl font-bold tracking-tight text-brand-primary-800">КВАЗАР</span>
+      <span class="hidden md:inline text-xs text-slate-500">Санкт-Петербург</span>
     </a>
-    <nav aria-label="Главное меню" class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+
+    <!-- Desktop nav -->
+    <nav aria-label="Главное меню" class="hidden md:flex items-center gap-6 text-sm font-medium">
       {
         navLinks.map((link) => (
-          <a class="text-slate-700 hover:text-brand-accent-600" href={link.href}>
+          <a class="text-slate-700 hover:text-brand-accent-600 transition-colors" href={link.href}>
             {link.label}
           </a>
         ))
       }
     </nav>
-    <div class="text-sm text-slate-700">
-      <a href="tel:+78124572106" class="font-semibold text-brand-primary-800 hover:text-brand-accent-600">
-        +7 (812) 457-21-06
+
+    <div class="flex items-center gap-3">
+      <a href="tel:+78124572106" class="hidden sm:flex flex-col items-end">
+        <span class="text-sm font-bold text-brand-primary-800 hover:text-brand-accent-600 transition-colors">+7 (812) 457-21-06</span>
+        <span class="text-[11px] text-slate-500">пн-пт 9:00-18:00</span>
       </a>
-      <div class="text-xs text-slate-500">пн-пт 9:00-18:00</div>
+
+      <!-- Mobile menu -->
+      <details class="relative md:hidden group">
+        <summary class="list-none cursor-pointer p-2 rounded-md hover:bg-slate-100 transition-colors">
+          <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </summary>
+        <nav class="absolute right-0 top-full mt-2 w-56 rounded-xl border border-slate-200 bg-white shadow-xl py-2 z-50">
+          {
+            navLinks.map((link) => (
+              <a class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-brand-primary-50 hover:text-brand-primary-800 transition-colors" href={link.href}>
+                {link.label}
+              </a>
+            ))
+          }
+          <hr class="my-2 border-slate-100" />
+          <a href="tel:+78124572106" class="block px-4 py-2.5 text-sm font-semibold text-brand-primary-800">
+            +7 (812) 457-21-06
+          </a>
+        </nav>
+      </details>
     </div>
   </div>
 </header>
