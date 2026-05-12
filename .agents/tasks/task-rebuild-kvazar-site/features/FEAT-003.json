@@ -1,0 +1,45 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Build the user-facing pages and components that render the scraped content. This is the 'new interface' layer. Uses the Content Collections populated by FEAT-002. Covers: home, catalog tree, brand listings, product detail, news (list + detail), objects (list + detail), certificates (grouped by category), articles, contacts with request form, 404, and sitemap + RSS + old-URL compatibility redirects.",
+  "status": "completed",
+  "steps": [
+    "Expand src/layouts/BaseLayout.astro: add <main class='container mx-auto py-8'>, skip-to-content link, meta keywords from prop, JSON-LD Organization on every page (name 'Квазар', url, logo, contactPoint with telephone, address PostalAddress). Pull Header/Footer into layout.",
+    "Home page (src/pages/index.astro): Hero with H1 'Квазар. Подвесные потолки и теплоизоляция в Санкт-Петербурге', subtitle, two CTAs (Каталог, Связаться). Section 'Категории каталога' that lists top-level categories (depth=1 from the categories collection) as tile cards with image + title. Section 'Последние новости' showing 3 latest news entries by date. Section 'О компании' - short paragraph. Section with contact CTA.",
+    "Catalog: src/pages/katalog/[...slug].astro using getStaticPaths over ALL entries in products + categories + brands collections. Inside the page, based on what matches the slug: category => render CategoryTree sibling nav + grid of subcategories or brands or products; brand => render product grid filtered by brand; product => render product detail with Gallery, SpecTable, description HTML (set:html), sticky 'Запросить цену' CTA that opens ContactForm prefilled with the product title.",
+    "Top-level /katalog/ index page at src/pages/katalog/index.astro: shows all 5 departments (potolki_i_steni, teploizolyatsiya, drevesno_plitnie_materiali, stroitelnie_smesi_vetonit, gipsovie_stroitelnie_pliti) as feature cards with image, description, subcategory count.",
+    "Components: Breadcrumbs.astro (renders from product.breadcrumbs), CategoryTree.astro (recursive nav with current-page highlight), ProductCard.astro (image thumb + title + brand + price label + link), Gallery.astro (main image + thumbnails, click-to-zoom via native <dialog>), SpecTable.astro (2-column table from specs array), ContactForm.astro (fields: name, phone, email, message, product hidden field; submits to Formspree/Web3Forms; action attribute reads from import.meta.env.PUBLIC_FORM_ENDPOINT with fallback 'mailto:info@kvazarcomp.ru').",
+    "News: src/pages/novosti/index.astro lists all news entries sorted date desc with title/excerpt/date. src/pages/novosti/[slug].astro renders the markdown body via <Content />. Include published date and previous/next navigation.",
+    "Objects: src/pages/obekty/index.astro grid of objects with hero image. src/pages/obekty/[slug].astro detail page.",
+    "Certificates: src/pages/sertifikaty/index.astro grouped by category (using the certificate.category field from the collection). Clicking a thumb opens full-size image in a dialog.",
+    "Articles/Instructions: src/pages/stati/index.astro for 'poleznaya_informatsiya/stati' entries; src/pages/instruktsii/index.astro for 'poleznaya_informatsiya/instruktsii_po_montazhu' entries. Both use the articles collection, discriminated by a `kind` field (article|instruction) the scraper sets based on source URL. Each has a [slug].astro renderer.",
+    "Contacts: src/pages/kontakty.astro - full contact card (address, 4 phones, email, hours, metro stations from context.json). Embed ContactForm. Embed Yandex Maps via iframe (url can use the address; if unsure, coder picks the address-based embed URL). Set canonical /kontakty/.",
+    "O nas: src/pages/o-nas/index.astro - static 'О компании' block.",
+    "404: make 404.astro helpful (search link, top categories, phone CTA).",
+    "SEO: every page sets title, description, canonical. Product pages emit JSON-LD Product schema (name, image, description, brand, offers: { priceCurrency 'RUB', price 0 or unavailable, availability InStock, url }, even when price is unknown emit offers with availability='https://schema.org/InStock' and price '0' or use 'priceSpecification' with description; coder picks a valid schema form).",
+    "astro.config.mjs redirects map: add a redirects object mapping every OLD url in scrape report to the NEW url. OLD structure: /katalog/dept/section/subsection/brand/product/ -> NEW: /katalog/{slug}/. This preserves all inbound SEO. Build the redirect map dynamically at build time by reading the products collection and using product.sourceUrl.pathname as the key and /katalog/{slug}/ as the value.",
+    "public/_redirects: generate the same map in Netlify syntax via an Astro middleware or a small scripts/gen-redirects.mjs called from prebuild (npm script chain). Keep the generation in the same script so Netlify/Cloudflare Pages deployments work out of the box.",
+    "@astrojs/sitemap will emit /sitemap-index.xml. Configure it with filter to include only canonical pages, and add a robots.txt at public/robots.txt pointing to the sitemap.",
+    "RSS for news: create src/pages/rss.xml.js using @astrojs/rss (add that dependency). Emit items for news collection.",
+    "Verify with `npm run build` that every page renders without TypeScript/Astro errors."
+  ],
+  "acceptance_criteria": [
+    "`npm run build` exits 0 with all pages emitted",
+    "dist/ contains: index.html, 404.html, katalog/index.html, katalog/{at least one category}/index.html, katalog/{at least one product}/index.html, novosti/index.html + at least one detail, obekty/index.html + at least one detail, sertifikaty/index.html, stati/index.html, instruktsii/index.html, kontakty/index.html, sitemap-index.xml, robots.txt, rss.xml",
+    "A known product page (e.g. dist/katalog/lilia/index.html) contains: the product H1, a gallery <img>, a specs <table>, a JSON-LD <script type='application/ld+json'> with @type=Product, and a contact-form section with data-product attribute",
+    "dist/kontakty/index.html contains the phone '+7 (812) 457-21-06', the address '198095, Санкт-Петербург', and an embedded map iframe",
+    "dist/_redirects contains at least one mapping from an old-style /katalog/potolki_i_steni/podvesnie_potolki/modulnie/rockfon/lilia/ to /katalog/lilia/ (or whatever the new slug resolution is)",
+    "dist/sitemap-index.xml exists and references at least one sitemap that lists > 100 urls",
+    "No page emits `undefined` into rendered HTML (grep dist for the literal string 'undefined' in rendered text - only scripts/css mentions allowed)"
+  ],
+  "verification": [
+    "Run `npm run build` - must exit 0",
+    "Run `ls dist/index.html dist/404.html dist/katalog/index.html dist/kontakty/index.html dist/novosti/index.html dist/sitemap-index.xml dist/robots.txt` - all must exist",
+    "Run `grep -l 'application/ld+json' dist/katalog/*/index.html | head -1` and confirm at least one product page has JSON-LD",
+    "Run `grep -c '/katalog/' dist/sitemap-*.xml` - must be > 100",
+    "Run `grep '+7 (812) 457-21-06' dist/kontakty/index.html` - must match",
+    "Run `node scripts/smoke.mjs` - must exit 0 (smoke test is defined in FEAT-004)"
+  ],
+  "blocked_reason": null,
+  "findings": "Removed malformed brand file '?page=2.json' that broke Vite/Rollup build. The scraper had created it from a paginated URL. Build emits 195 pages, 193 sitemap URLs, 114 redirects. The Header links to /o-nas/novosti/ and /o-nas/obekty/ so created duplicate listing pages at those paths. No instructions 'kind' field in article frontmatter so used sourceUrl-based filtering for /instruktsii/ page."
+}
