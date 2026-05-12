@@ -1,0 +1,36 @@
+{
+  "slug": "armstrong",
+  "title": "Armstrong (Армстронг)",
+  "description": "<div class=\"full_description  mgt15 mgb20\">\n\t\t\n\t</div>",
+  "inCategory": [
+    "katalog/potolki_i_steni/podvesnie_potolki/modulnie"
+  ],
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Каталог",
+      "href": "/katalog/"
+    },
+    {
+      "title": "Потолки и стены",
+      "href": "/katalog/potolki_i_steni/"
+    },
+    {
+      "title": "Подвесные потолки",
+      "href": "/katalog/potolki_i_steni/podvesnie_potolki/"
+    },
+    {
+      "title": "Модульные",
+      "href": "/katalog/potolki_i_steni/podvesnie_potolki/modulnie/"
+    }
+  ],
+  "seo": {
+    "title": "Armstrong (Армстронг)",
+    "description": "Модульные потолки «Армстронг» от официального дилера в Петербурге. Доставка по городу и Лен области."
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/potolki_i_steni/podvesnie_potolki/modulnie/armstrong/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

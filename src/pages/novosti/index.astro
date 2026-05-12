@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const allNews = await getCollection('news');
+const sortedNews = allNews.sort((a, b) => {
+  const da = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const db = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return db - da;
+});
+---
+
+<BaseLayout
+  title="Новости - Квазар"
+  description="Новости компании Квазар: акции, новые поступления, распродажи."
+>
+  <Breadcrumbs items={[{ title: 'Главная', href: '/' }, { title: 'Новости', href: '/novosti/' }]} />
+  <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">Новости</h1>
+  <div class="space-y-6">
+    {sortedNews.map((entry) => (
+      <article class="rounded-lg border border-slate-200 bg-white p-5 hover:shadow-sm transition">
+        <a href={`/novosti/${entry.slug}/`} class="block">
+          <h2 class="text-lg font-semibold text-brand-primary-800 hover:text-brand-accent-600">
+            {entry.data.title}
+          </h2>
+          {entry.data.date && (
+            <time class="mt-1 block text-xs text-slate-500" datetime={entry.data.date.toISOString()}>
+              {entry.data.date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+          )}
+          {entry.data.excerpt && (
+            <p class="mt-2 text-sm text-slate-600">{entry.data.excerpt}</p>
+          )}
+        </a>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

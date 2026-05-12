@@ -1,0 +1,190 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import ProductCard from '@/components/ProductCard.astro';
+import CategoryCard from '@/components/CategoryCard.astro';
+import Gallery from '@/components/Gallery.astro';
+import SpecTable from '@/components/SpecTable.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allProducts = await getCollection('products');
+  const allCategories = await getCollection('categories');
+  const allBrands = await getCollection('brands');
+
+  const paths: { params: { slug: string }; props: Record<string, any> }[] = [];
+
+  for (const product of allProducts) {
+    paths.push({
+      params: { slug: product.data.slug },
+      props: { type: 'product', entry: product.data },
+    });
+  }
+
+  for (const category of allCategories) {
+    if (category.data.slug === 'katalog') continue;
+    paths.push({
+      params: { slug: category.data.slug },
+      props: { type: 'category', entry: category.data },
+    });
+  }
+
+  for (const brand of allBrands) {
+    // Avoid collision with product/category slugs
+    const hasConflict =
+      allProducts.some((p) => p.data.slug === brand.data.slug) ||
+      allCategories.some((c) => c.data.slug === brand.data.slug);
+    if (!hasConflict) {
+      paths.push({
+        params: { slug: brand.data.slug },
+        props: { type: 'brand', entry: brand.data },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { type, entry } = Astro.props;
+
+const allProducts = await getCollection('products');
+const allCategories = await getCollection('categories');
+
+let title = '';
+let description = '';
+let breadcrumbs: { title: string; href: string }[] = [];
+let childCategories: typeof allCategories = [];
+let matchedProducts: typeof allProducts = [];
+
+if (type === 'product') {
+  title = entry.seo?.title || entry.h1 || entry.title;
+  description = entry.seo?.description || '';
+  breadcrumbs = entry.breadcrumbs || [];
+} else if (type === 'category') {
+  title = entry.seo?.title || entry.title;
+  description = entry.seo?.description || '';
+  breadcrumbs = entry.breadcrumbs || [
+    { title: 'Главная', href: '/' },
+    { title: 'Каталог', href: '/katalog/' },
+    { title: entry.title, href: `/katalog/${entry.slug}/` },
+  ];
+  childCategories = allCategories.filter((c) => c.data.parent === entry.slug);
+  matchedProducts = allProducts.filter((p) => p.data.category.includes(entry.slug));
+} else if (type === 'brand') {
+  title = entry.seo?.title || entry.title;
+  description = entry.seo?.description || '';
+  breadcrumbs = entry.breadcrumbs || [
+    { title: 'Главная', href: '/' },
+    { title: 'Каталог', href: '/katalog/' },
+    { title: entry.title, href: `/katalog/${entry.slug}/` },
+  ];
+  matchedProducts = allProducts.filter((p) => p.data.brand === entry.slug);
+}
+
+const productImages = type === 'product'
+  ? [...(entry.images || []), ...(entry.gallery || [])].filter(Boolean)
+  : [];
+
+const jsonLdProduct = type === 'product' ? JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: entry.h1 || entry.title,
+  image: productImages.length > 0 ? productImages[0] : undefined,
+  description: entry.seo?.description || entry.title,
+  brand: entry.brand ? { '@type': 'Brand', name: entry.brand } : undefined,
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'RUB',
+    price: entry.priceValue ?? 0,
+    availability: 'https://schema.org/InStock',
+    url: `https://kvazarcomp.ru/katalog/${entry.slug}/`,
+  },
+}) : null;
+---
+
+<BaseLayout title={title} description={description}>
+  {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+
+  {type === 'product' && (
+    <article class="space-y-8">
+      <h1 class="text-2xl font-bold text-brand-primary-900">{entry.h1 || entry.title}</h1>
+      {productImages.length > 0 && <Gallery images={productImages} />}
+      {entry.specs && entry.specs.length > 0 && (
+        <section>
+          <h2 class="text-lg font-semibold text-slate-800 mb-2">Характеристики</h2>
+          <SpecTable specs={entry.specs} />
+        </section>
+      )}
+      {entry.priceLabel && (
+        <p class="text-lg font-medium text-brand-accent-700">Цена: {entry.priceLabel}</p>
+      )}
+      {entry.description && (
+        <section class="prose max-w-none">
+          <Fragment set:html={entry.description} />
+        </section>
+      )}
+      <ContactForm product={entry.h1 || entry.title} />
+      {jsonLdProduct && <script type="application/ld+json" set:html={jsonLdProduct} />}
+    </article>
+  )}
+
+  {type === 'category' && (
+    <div>
+      <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">{entry.title}</h1>
+      {childCategories.length > 0 && (
+        <section class="mb-8">
+          <h2 class="text-lg font-semibold text-slate-700 mb-3">Подкатегории</h2>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {childCategories.map((cat) => (
+              <CategoryCard title={cat.data.title} slug={cat.data.slug} image={cat.data.image} />
+            ))}
+          </div>
+        </section>
+      )}
+      {matchedProducts.length > 0 && (
+        <section>
+          <h2 class="text-lg font-semibold text-slate-700 mb-3">Товары</h2>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {matchedProducts.map((p) => (
+              <ProductCard
+                title={p.data.h1 || p.data.title}
+                slug={p.data.slug}
+                brand={p.data.brand}
+                priceLabel={p.data.priceLabel}
+                image={p.data.images?.[0]}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  )}
+
+  {type === 'brand' && (
+    <div>
+      <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">{entry.title}</h1>
+      {entry.description && (
+        <div class="prose max-w-none mb-8">
+          <Fragment set:html={entry.description} />
+        </div>
+      )}
+      {matchedProducts.length > 0 && (
+        <section>
+          <h2 class="text-lg font-semibold text-slate-700 mb-3">Товары</h2>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {matchedProducts.map((p) => (
+              <ProductCard
+                title={p.data.h1 || p.data.title}
+                slug={p.data.slug}
+                brand={p.data.brand}
+                priceLabel={p.data.priceLabel}
+                image={p.data.images?.[0]}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  )}
+</BaseLayout>

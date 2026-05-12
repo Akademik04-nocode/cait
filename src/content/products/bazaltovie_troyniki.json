@@ -1,0 +1,54 @@
+{
+  "slug": "bazaltovie_troyniki",
+  "title": "Тройники Heatwool - КВАЗАР",
+  "h1": "Базальтовые тройники Heatwool",
+  "description": "<div class=\"tovar-description\" itemprop=\"description\">\n\t<h2>Описание</h2>\n\t\n</div>",
+  "specs": [
+    {
+      "name": "Производитель",
+      "value": "Хитвул"
+    },
+    {
+      "name": "Размер панели",
+      "value": ""
+    },
+    {
+      "name": "Упаковка",
+      "value": ""
+    }
+  ],
+  "priceValue": null,
+  "images": [],
+  "gallery": [],
+  "category": "teploizolyatsiya/tehnicheskaya_teploizolyatsiya",
+  "brand": "hitvul",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Каталог",
+      "href": "/katalog/"
+    },
+    {
+      "title": "Утеплитель",
+      "href": "/katalog/teploizolyatsiya/"
+    },
+    {
+      "title": "Техническая теплоизоляция",
+      "href": "/katalog/teploizolyatsiya/tehnicheskaya_teploizolyatsiya/"
+    },
+    {
+      "title": "Хитвул",
+      "href": "/katalog/teploizolyatsiya/tehnicheskaya_teploizolyatsiya/hitvul/"
+    }
+  ],
+  "seo": {
+    "title": "Тройники Heatwool - КВАЗАР",
+    "description": "Тройники Heatwool для теплоизоляции трубопроводов",
+    "keywords": "тройники Heatwool, теплоизоляция трубопроводов, Heatwool,"
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/teploizolyatsiya/tehnicheskaya_teploizolyatsiya/hitvul/bazaltovie_troyniki/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

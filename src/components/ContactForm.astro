@@ -1,0 +1,62 @@
+---
+interface Props {
+  product?: string;
+}
+
+const { product } = Astro.props;
+const formAction = import.meta.env.PUBLIC_FORM_ENDPOINT || 'mailto:info@kvazarcomp.ru';
+---
+
+<form
+  action={formAction}
+  method="POST"
+  class="space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-6"
+  data-product={product}
+>
+  <h3 class="text-lg font-semibold text-brand-primary-800">Запросить цену</h3>
+  {product && <input type="hidden" name="product" value={product} />}
+  <div>
+    <label for="cf-name" class="block text-sm font-medium text-slate-700">Имя</label>
+    <input
+      type="text"
+      id="cf-name"
+      name="name"
+      required
+      class="mt-1 block w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-brand-primary-500 focus:ring-1 focus:ring-brand-primary-500"
+    />
+  </div>
+  <div>
+    <label for="cf-phone" class="block text-sm font-medium text-slate-700">Телефон</label>
+    <input
+      type="tel"
+      id="cf-phone"
+      name="phone"
+      required
+      class="mt-1 block w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-brand-primary-500 focus:ring-1 focus:ring-brand-primary-500"
+    />
+  </div>
+  <div>
+    <label for="cf-email" class="block text-sm font-medium text-slate-700">Email</label>
+    <input
+      type="email"
+      id="cf-email"
+      name="email"
+      class="mt-1 block w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-brand-primary-500 focus:ring-1 focus:ring-brand-primary-500"
+    />
+  </div>
+  <div>
+    <label for="cf-message" class="block text-sm font-medium text-slate-700">Сообщение</label>
+    <textarea
+      id="cf-message"
+      name="message"
+      rows="3"
+      class="mt-1 block w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-brand-primary-500 focus:ring-1 focus:ring-brand-primary-500"
+    ></textarea>
+  </div>
+  <button
+    type="submit"
+    class="rounded bg-brand-accent-600 px-6 py-2 text-sm font-semibold text-white hover:bg-brand-accent-700 transition"
+  >
+    Отправить
+  </button>
+</form>

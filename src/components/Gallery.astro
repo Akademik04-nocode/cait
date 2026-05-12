@@ -1,0 +1,92 @@
+---
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props;
+const hasImages = images.length > 0;
+---
+
+{hasImages && (
+  <div class="gallery">
+    <div class="mb-2">
+      <button
+        type="button"
+        class="gallery-main-btn w-full cursor-zoom-in"
+        data-gallery-open
+      >
+        <img
+          id="gallery-main"
+          src={images[0]}
+          alt="Фото товара"
+          class="w-full max-h-96 object-contain rounded border border-slate-200 bg-white"
+        />
+      </button>
+    </div>
+    {images.length > 1 && (
+      <div class="flex gap-2 overflow-x-auto pb-2">
+        {images.map((img, i) => (
+          <button
+            type="button"
+            class="gallery-thumb flex-shrink-0 w-16 h-16 rounded border border-slate-200 overflow-hidden hover:border-brand-primary-400 transition"
+            data-src={img}
+          >
+            <img
+              src={img}
+              alt={`Фото ${i + 1}`}
+              class="w-full h-full object-contain"
+              loading="lazy"
+            />
+          </button>
+        ))}
+      </div>
+    )}
+    <dialog id="gallery-dialog" class="p-0 bg-transparent backdrop:bg-black/80 max-w-[90vw] max-h-[90vh]">
+      <div class="relative">
+        <button
+          type="button"
+          class="absolute top-2 right-2 z-10 rounded-full bg-white/90 p-2 text-slate-700 hover:bg-white"
+          data-gallery-close
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <img id="gallery-fullscreen" src="" alt="Полноразмерное фото" class="max-w-[90vw] max-h-[90vh] object-contain" />
+      </div>
+    </dialog>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const mainImg = document.getElementById('gallery-main') as HTMLImageElement | null;
+        const dialog = document.getElementById('gallery-dialog') as HTMLDialogElement | null;
+        const fullImg = document.getElementById('gallery-fullscreen') as HTMLImageElement | null;
+
+        document.querySelectorAll('.gallery-thumb').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const src = (btn as HTMLElement).dataset.src;
+            if (mainImg && src) mainImg.src = src;
+          });
+        });
+
+        document.querySelectorAll('[data-gallery-open]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            if (dialog && fullImg && mainImg) {
+              fullImg.src = mainImg.src;
+              dialog.showModal();
+            }
+          });
+        });
+
+        document.querySelectorAll('[data-gallery-close]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            if (dialog) dialog.close();
+          });
+        });
+
+        dialog?.addEventListener('click', (e) => {
+          if (e.target === dialog) dialog.close();
+        });
+      });
+    </script>
+  </div>
+)}

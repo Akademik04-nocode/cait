@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const allCerts = await getCollection('certificates');
+
+// Group by category
+const grouped: Record<string, typeof allCerts> = {};
+for (const cert of allCerts) {
+  const cat = cert.data.category || 'Общие';
+  if (!grouped[cat]) grouped[cat] = [];
+  grouped[cat].push(cert);
+}
+const categoryKeys = Object.keys(grouped).sort();
+---
+
+<BaseLayout
+  title="Сертификаты - Квазар"
+  description="Сертификаты соответствия на продукцию компании Квазар."
+>
+  <Breadcrumbs items={[{ title: 'Главная', href: '/' }, { title: 'Сертификаты', href: '/sertifikaty/' }]} />
+  <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">Сертификаты</h1>
+
+  {categoryKeys.map((catKey) => (
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold text-slate-700 mb-3 capitalize">{catKey.replace(/\//g, ' / ')}</h2>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        {grouped[catKey].map((cert) => (
+          <button
+            type="button"
+            class="cert-thumb group block rounded border border-slate-200 bg-white p-2 hover:shadow-md transition cursor-zoom-in"
+            data-full-src={cert.data.image}
+            data-title={cert.data.title}
+          >
+            <img
+              src={cert.data.image}
+              alt={cert.data.title}
+              class="w-full aspect-[3/4] object-contain"
+              loading="lazy"
+            />
+            <p class="mt-1 text-xs text-slate-600 text-center line-clamp-2">{cert.data.title}</p>
+          </button>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <dialog id="cert-dialog" class="p-0 bg-transparent backdrop:bg-black/80 max-w-[90vw] max-h-[90vh]">
+    <div class="relative">
+      <button
+        type="button"
+        class="absolute top-2 right-2 z-10 rounded-full bg-white/90 p-2 text-slate-700 hover:bg-white"
+        id="cert-dialog-close"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <img id="cert-fullscreen" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain" />
+    </div>
+  </dialog>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dialog = document.getElementById('cert-dialog') as HTMLDialogElement | null;
+      const fullImg = document.getElementById('cert-fullscreen') as HTMLImageElement | null;
+      const closeBtn = document.getElementById('cert-dialog-close');
+
+      document.querySelectorAll('.cert-thumb').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const el = btn as HTMLElement;
+          if (dialog && fullImg) {
+            fullImg.src = el.dataset.fullSrc || '';
+            fullImg.alt = el.dataset.title || '';
+            dialog.showModal();
+          }
+        });
+      });
+
+      closeBtn?.addEventListener('click', () => dialog?.close());
+      dialog?.addEventListener('click', (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+    });
+  </script>
+</BaseLayout>

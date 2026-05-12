@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CategoryCard from '@/components/CategoryCard.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const allCategories = await getCollection('categories');
+const topLevelCategories = allCategories.filter(
+  (c) => !c.data.parent && c.data.slug !== 'katalog'
+);
+---
+
+<BaseLayout
+  title="Каталог потолков и теплоизоляции - Квазар"
+  description="Каталог подвесных потолков, теплоизоляции, OSB, Vetonit и гипсокартона от компании Квазар в Санкт-Петербурге."
+>
+  <Breadcrumbs items={[{ title: 'Главная', href: '/' }, { title: 'Каталог', href: '/katalog/' }]} />
+  <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">Каталог продукции</h1>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    {topLevelCategories.map((cat) => (
+      <CategoryCard
+        title={cat.data.title}
+        slug={cat.data.slug}
+        image={cat.data.image}
+      />
+    ))}
+  </div>
+</BaseLayout>

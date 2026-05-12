@@ -1,0 +1,55 @@
+{
+  "slug": "tsilindri",
+  "title": "Heatwool - КВАЗАР",
+  "h1": "Цилиндры кашированные Heatwool",
+  "description": "<div class=\"tovar-description\" itemprop=\"description\">\n\t<h2>Описание</h2>\n\t\n</div>",
+  "specs": [
+    {
+      "name": "Производитель",
+      "value": "Хитвул"
+    },
+    {
+      "name": "Размер панели",
+      "value": ""
+    },
+    {
+      "name": "Упаковка",
+      "value": ""
+    }
+  ],
+  "priceLabel": "от 72 р.",
+  "priceValue": 72,
+  "images": [],
+  "gallery": [],
+  "category": "teploizolyatsiya/tehnicheskaya_teploizolyatsiya",
+  "brand": "hitvul",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Каталог",
+      "href": "/katalog/"
+    },
+    {
+      "title": "Утеплитель",
+      "href": "/katalog/teploizolyatsiya/"
+    },
+    {
+      "title": "Техническая теплоизоляция",
+      "href": "/katalog/teploizolyatsiya/tehnicheskaya_teploizolyatsiya/"
+    },
+    {
+      "title": "Хитвул",
+      "href": "/katalog/teploizolyatsiya/tehnicheskaya_teploizolyatsiya/hitvul/"
+    }
+  ],
+  "seo": {
+    "title": "Heatwool - КВАЗАР",
+    "description": "Цилиндры кашированные Heatwool для трубопроводов",
+    "keywords": "Heatwool, изоляция трубопроводов, техническая изоляция трубопроводов, цилиндры кашированные"
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/teploizolyatsiya/tehnicheskaya_teploizolyatsiya/hitvul/tsilindri/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

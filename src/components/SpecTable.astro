@@ -1,0 +1,29 @@
+---
+interface Props {
+  specs: { name: string; value: string }[];
+}
+
+const { specs } = Astro.props;
+const filteredSpecs = specs.filter((s) => s.name && s.value);
+---
+
+{filteredSpecs.length > 0 && (
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm border border-slate-200 rounded">
+      <thead>
+        <tr class="bg-brand-primary-50 text-left">
+          <th class="px-4 py-2 font-semibold text-slate-700">Характеристика</th>
+          <th class="px-4 py-2 font-semibold text-slate-700">Значение</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredSpecs.map((spec, i) => (
+          <tr class={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+            <td class="px-4 py-2 text-slate-600 border-t border-slate-100">{spec.name}</td>
+            <td class="px-4 py-2 text-slate-800 border-t border-slate-100">{spec.value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}

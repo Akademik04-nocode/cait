@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import ContactForm from '@/components/ContactForm.astro';
+---
+
+<BaseLayout
+  title="Контакты - Квазар"
+  description="Контактная информация компании Квазар: адрес, телефоны, email, режим работы."
+>
+  <Breadcrumbs items={[{ title: 'Главная', href: '/' }, { title: 'Контакты', href: '/kontakty/' }]} />
+  <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">Контакты</h1>
+
+  <div class="grid gap-8 lg:grid-cols-2">
+    <div class="space-y-6">
+      <div>
+        <h2 class="text-lg font-semibold text-slate-800 mb-2">Адрес</h2>
+        <p class="text-slate-700">198095, Санкт-Петербург, Митрофаньевское шоссе, д.17 к.2Б</p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold text-slate-800 mb-2">Телефоны</h2>
+        <ul class="space-y-1 text-slate-700">
+          <li><a href="tel:+78124572106" class="hover:text-brand-accent-600">+7 (812) 457-21-06</a></li>
+          <li><a href="tel:+78124363223" class="hover:text-brand-accent-600">+7 (812) 436-32-23</a></li>
+          <li><a href="tel:+78124363082" class="hover:text-brand-accent-600">+7 (812) 436-30-82</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold text-slate-800 mb-2">Email</h2>
+        <p><a href="mailto:info@kvazarcomp.ru" class="text-brand-primary-700 hover:text-brand-accent-600">info@kvazarcomp.ru</a></p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold text-slate-800 mb-2">Режим работы</h2>
+        <p class="text-slate-700">пн-пт 9:00-18:00</p>
+      </div>
+
+      <ContactForm />
+    </div>
+
+    <div>
+      <h2 class="text-lg font-semibold text-slate-800 mb-2">Как нас найти</h2>
+      <div class="aspect-[4/3] w-full rounded-lg overflow-hidden border border-slate-200">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=30.274800%2C59.898400&z=16&text=198095%2C+%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C+%D0%9C%D0%B8%D1%82%D1%80%D0%BE%D1%84%D0%B0%D0%BD%D1%8C%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B5+%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C+%D0%B4.17+%D0%BA.2%D0%91"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allowfullscreen
+          class="w-full h-full"
+          title="Карта - Квазар"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

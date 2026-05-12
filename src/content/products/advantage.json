@@ -1,0 +1,58 @@
+{
+  "slug": "advantage",
+  "title": "Ecophon Advantage - КВАЗАР",
+  "h1": "Плита Ecophon Advantage",
+  "description": "<div class=\"tovar-description\" itemprop=\"description\">\n\t<h2>Описание</h2>\n\t\n</div>",
+  "specs": [
+    {
+      "name": "Производитель",
+      "value": "Ecophon"
+    },
+    {
+      "name": "Размер панели",
+      "value": "600x600х15мм1200x600х15мм"
+    },
+    {
+      "name": "Упаковка",
+      "value": ""
+    }
+  ],
+  "priceValue": null,
+  "images": [],
+  "gallery": [],
+  "category": "potolki_i_steni/podvesnie_potolki/modulnie",
+  "brand": "ecophon",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Каталог",
+      "href": "/katalog/"
+    },
+    {
+      "title": "Потолки и стены",
+      "href": "/katalog/potolki_i_steni/"
+    },
+    {
+      "title": "Подвесные потолки",
+      "href": "/katalog/potolki_i_steni/podvesnie_potolki/"
+    },
+    {
+      "title": "Модульные",
+      "href": "/katalog/potolki_i_steni/podvesnie_potolki/modulnie/"
+    },
+    {
+      "title": "Ecophon",
+      "href": "/katalog/potolki_i_steni/podvesnie_potolki/modulnie/ecophon/"
+    }
+  ],
+  "seo": {
+    "title": "Ecophon Advantage - КВАЗАР",
+    "description": "Купить акустический.влагостойкий подвесной потолок.Выбор по каталогу,помощь эксперта,низкие цены,наличие на складе.Доставка",
+    "keywords": "Ecophon Advantage, Ecophon Advantage e, Ecophon Advantage et15"
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/potolki_i_steni/podvesnie_potolki/modulnie/ecophon/advantage/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

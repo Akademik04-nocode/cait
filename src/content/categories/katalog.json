@@ -1,0 +1,19 @@
+{
+  "slug": "katalog",
+  "title": "Каталог потолков и теплоизоляции",
+  "description": "<div class=\"full_description  mgt15 mgb20\">\n\t\t\n\t</div>",
+  "image": "/images/cache/images/288479d47ba79ff036e93428b66d542b.jpg",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    }
+  ],
+  "seo": {
+    "title": "Каталог потолков и теплоизоляции",
+    "description": "Выбирайте по каталогу подвесные потолки и теплоизоляцию в Квазаре",
+    "keywords": "потолки, теплоизоляция"
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

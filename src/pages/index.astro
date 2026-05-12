@@ -1,24 +1,108 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import CategoryCard from '@/components/CategoryCard.astro';
+import { getCollection } from 'astro:content';
+
+const allCategories = await getCollection('categories');
+const topLevelCategories = allCategories.filter(
+  (c) => !c.data.parent && c.data.slug !== 'katalog'
+);
+
+const allNews = await getCollection('news');
+const latestNews = allNews
+  .sort((a, b) => {
+    const da = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const db = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return db - da;
+  })
+  .slice(0, 3);
 ---
 
 <BaseLayout
   title="Квазар. Подвесные потолки и теплоизоляция в Санкт-Петербурге"
   description="Квазар - поставка подвесных потолков, теплоизоляции, OSB, Vetonit и гипсокартона в Санкт-Петербурге. Работаем с объектами и частными заказчиками."
 >
-  <section class="max-w-3xl">
+  <section class="mb-12">
     <h1 class="text-3xl font-bold tracking-tight text-brand-primary-900 sm:text-4xl">
       Квазар. Подвесные потолки и теплоизоляция в Санкт-Петербурге
     </h1>
-    <p class="mt-4 text-lg text-slate-700">
+    <p class="mt-4 text-lg text-slate-700 max-w-3xl">
       Мы поставляем подвесные потолки, теплоизоляцию, OSB-плиты, сухие смеси Vetonit и
       гипсокартон со склада в Санкт-Петербурге. Работаем с оптовыми и частными
       заказчиками, поставляем материалы на объекты по всему Северо-Западу.
     </p>
-    <p class="mt-4 text-slate-600">
-      Позвоните <a class="font-semibold text-brand-primary-800 hover:text-brand-accent-600" href="tel:+78124572106">+7 (812) 457-21-06</a>
-      или напишите на <a class="font-semibold text-brand-primary-800 hover:text-brand-accent-600" href="mailto:info@kvazarcomp.ru">info@kvazarcomp.ru</a>,
-      чтобы получить расчёт.
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="/katalog/"
+        class="rounded-md bg-brand-primary-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-primary-900 transition"
+      >
+        Каталог
+      </a>
+      <a
+        href="/kontakty/"
+        class="rounded-md border border-brand-primary-800 px-5 py-2.5 text-sm font-semibold text-brand-primary-800 hover:bg-brand-primary-50 transition"
+      >
+        Связаться
+      </a>
+    </div>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-brand-primary-900 mb-4">Категории каталога</h2>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {topLevelCategories.map((cat) => (
+        <CategoryCard
+          title={cat.data.title}
+          slug={cat.data.slug}
+          image={cat.data.image}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-xl font-bold text-brand-primary-900 mb-4">Последние новости</h2>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {latestNews.map((entry) => (
+        <a
+          href={`/novosti/${entry.slug}/`}
+          class="block rounded-lg border border-slate-200 bg-white p-5 hover:shadow-sm transition"
+        >
+          <h3 class="font-semibold text-brand-primary-800 hover:text-brand-accent-600">
+            {entry.data.title}
+          </h3>
+          {entry.data.date && (
+            <time class="mt-1 block text-xs text-slate-500" datetime={entry.data.date.toISOString()}>
+              {entry.data.date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+          )}
+          {entry.data.excerpt && (
+            <p class="mt-2 text-sm text-slate-600">{entry.data.excerpt}</p>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="rounded-lg bg-brand-primary-50 p-8 text-center">
+    <h2 class="text-xl font-bold text-brand-primary-900 mb-2">Нужна консультация?</h2>
+    <p class="text-slate-700 mb-4">
+      Позвоните нам или оставьте заявку, и наш менеджер свяжется с вами.
     </p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a
+        href="tel:+78124572106"
+        class="font-semibold text-brand-primary-800 hover:text-brand-accent-600"
+      >
+        +7 (812) 457-21-06
+      </a>
+      <span class="text-slate-400">|</span>
+      <a
+        href="mailto:info@kvazarcomp.ru"
+        class="font-semibold text-brand-primary-800 hover:text-brand-accent-600"
+      >
+        info@kvazarcomp.ru
+      </a>
+    </div>
   </section>
 </BaseLayout>

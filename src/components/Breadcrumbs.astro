@@ -1,0 +1,45 @@
+---
+interface BreadcrumbItem {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Хлебные крошки" class="mb-4 text-sm text-slate-600">
+  <ol
+    class="flex flex-wrap items-center gap-1"
+    itemscope
+    itemtype="https://schema.org/BreadcrumbList"
+  >
+    {items.map((item, index) => (
+      <li
+        class="flex items-center gap-1"
+        itemprop="itemListElement"
+        itemscope
+        itemtype="https://schema.org/ListItem"
+      >
+        {index > 0 && <span class="text-slate-400">/</span>}
+        {index < items.length - 1 ? (
+          <a
+            href={item.href}
+            itemprop="item"
+            class="hover:text-brand-primary-700 underline-offset-2 hover:underline"
+          >
+            <span itemprop="name">{item.title}</span>
+          </a>
+        ) : (
+          <span itemprop="item" itemid={item.href}>
+            <span itemprop="name" class="text-slate-800 font-medium">{item.title}</span>
+          </span>
+        )}
+        <meta itemprop="position" content={String(index + 1)} />
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,57 @@
+{
+  "slug": "ursa_xps",
+  "title": "URSA GEO П-60 - КВАЗАР",
+  "h1": "Утеплитель URSA GEO П-60",
+  "description": "<div class=\"tovar-description\" itemprop=\"description\">\n\t<h2>Описание</h2>\n\t<div class=\"b-product__description\">\n<p>Полужесткие изоляционные плиты. Рекомендованы в&nbsp;качестве звукоизоляции в&nbsp;конструкции «плавающего пола». Применение материала позволяет улучшить звукоизоляционные показатели конструкции не&nbsp;менее чем на&nbsp;36 дБ. Представлены в&nbsp;двух толщинах: 20 и&nbsp;25&nbsp;мм.</p>\n<p>Материал безопасен для человека и окружающей среды.</p>\n</div>\n<div class=\"b-product__advantages\">\n<div class=\"b-product__advantages-item\"><img class=\"b-product__advantages-icon\" src=\"https://www.ursa.ru/upload/uf/2a0/2a061817edc6d0de80bdafca477544a6.png\" alt=\"Защита от влаги\">\n<div class=\"b-product__advantages-name\">Защита от влаги</div>\n</div>\n<div class=\"b-product__advantages-item\"><img class=\"b-product__advantages-icon\" src=\"https://www.ursa.ru/upload/uf/997/997bb3225caf314fa02c7506bc59f045.png\" alt=\"Безопасен для человека и окружающей среды\">\n<div class=\"b-product__advantages-name\">Безопасен для человека и окружающей среды</div>\n</div>\n<div class=\"b-product__advantages-item\"><img class=\"b-product__advantages-icon\" src=\"https://www.ursa.ru/upload/uf/2f9/2f9104103e5df1b90e9c3d5a8ff26dfe.png\" alt=\"Негорючесть\">\n<div class=\"b-product__advantages-name\">Негорючесть</div>\n</div>\n<div class=\"b-product__advantages-item\"><img class=\"b-product__advantages-icon\" src=\"https://www.ursa.ru/upload/uf/d2f/d2fb83346b9347cef532f07ea7b05762.png\" alt=\"Повышенная жесткость\">\n<div class=\"b-product__advantages-name\">Повышенная жесткость</div>\n</div>\n<div class=\"b-product__advantages-item\"><img class=\"b-product__advantages-icon\" src=\"https://www.ursa.ru/upload/uf/d9a/d9aacd1241a540acddddbb1e61833779.png\" alt=\"Соответствует ГОСТ\">\n<div class=\"b-product__advantages-name\">Соответствует ГОСТ</div>\n</div>\n<div class=\"b-product__advantages-item\"><img class=\"b-product__advantages-icon\" src=\"https://www.ursa.ru/upload/uf/263/263109b26e78ccf3eab7c4a102dcc2fd.png\" alt=\"Звукоизоляция\">\n<div class=\"b-product__advantages-name\">Звукоизоляция</div>\n</div>\n</div>\n<div class=\"b-product__properties\">\n<h2>Технические характеристики</h2>\n<ul>\n<li>Теплопроводность λ10<small>0,031 Вт/мК</small></li>\n<li>Теплопроводность λ25<small>0,032 Вт/мК</small></li>\n<li>Теплопроводность λА<small>0,035 Вт/мК</small></li>\n<li>Теплопроводность λБ<small>0,037 Вт/мК</small></li>\n<li>Горючесть<small>НГ&nbsp;(негорючий)</small></li>\n<li>Класс пожарной опасности<small>КМ0</small></li>\n<li>Водопоглощение при частичном погружении за 24 часа<small>не более 1 кг/м²</small></li>\n<li>Температура применения<small>от&nbsp;-60 °С до&nbsp;+220 °С</small></li>\n</ul>\n</div>\n<div class=\"b-product__table\">\n<h2>Размеры</h2>\n<div class=\"b-block-table ps b-block-table--js_init\" data-b-block-table-bemid=\"4\">\n<table border=\"0\">\n<thead>\n<tr><th>Количество в упаковке, шт</th><th>Объем материала в упаковке, м<sup>3</sup></th><th>Площадь материала в упаковке, м<sup>2</sup></th><th>Длина, мм</th><th>Ширина, мм</th><th>Толщина, мм</th></tr>\n</thead>\n<tbody>\n<tr>\n<td>24</td>\n<td>0,360</td>\n<td>18</td>\n<td>1250</td>\n<td>600</td>\n<td>20</td>\n</tr>\n<tr>\n<td>20</td>\n<td>0,375</td>\n<td>15</td>\n<td>1250</td>\n<td>600</td>\n<td>25</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"b-product__garanty\">\n<div class=\"b-garanty\">\n<h2 class=\"b-garanty__title\">Гарантия</h2>\n<div class=\"b-garanty__content\"><a class=\"b-garanty__image\" href=\"http://ursa.ru/why_ursa/preimushchestva-materialov/garantiya-50-let/\"><img src=\"https://www.ursa.ru/upload/garanty.png\" alt=\"\"></a>\n<div class=\"b-garanty__desc\">\n<p>Мы гарантируем вам 50 лет качественной эксплуатации ваших продуктов на уровне юридически оформленной гарантии с механизмом выплаты компенсации</p>\n</div>\n</div>\n</div>\n</div>\n</div>",
+  "specs": [
+    {
+      "name": "Производитель",
+      "value": "Ursa"
+    },
+    {
+      "name": "Размер панели",
+      "value": "1250*600*20/1250*600*25"
+    },
+    {
+      "name": "Упаковка",
+      "value": "0,36м3/0,375м3-18и2/15м2"
+    }
+  ],
+  "priceValue": null,
+  "images": [],
+  "gallery": [],
+  "category": "teploizolyatsiya/teploizolyatsiya_polov/plavayushchie_poli",
+  "brand": "ursa",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Каталог",
+      "href": "/katalog/"
+    },
+    {
+      "title": "Утеплитель",
+      "href": "/katalog/teploizolyatsiya/"
+    },
+    {
+      "title": "Утеплитель для пола",
+      "href": "/katalog/teploizolyatsiya/teploizolyatsiya_polov/"
+    },
+    {
+      "title": "Плавающие полы",
+      "href": "/katalog/teploizolyatsiya/teploizolyatsiya_polov/plavayushchie_poli/"
+    },
+    {
+      "title": "Ursa",
+      "href": "/katalog/teploizolyatsiya/teploizolyatsiya_polov/plavayushchie_poli/ursa/"
+    }
+  ],
+  "seo": {
+    "title": "URSA GEO П-60 - КВАЗАР",
+    "description": "Купить утеплитель для "
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/teploizolyatsiya/teploizolyatsiya_polov/plavayushchie_poli/ursa/ursa_xps/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

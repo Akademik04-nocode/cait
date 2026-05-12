@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allNews = await getCollection('news');
+  return allNews.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const title = entry.data.seo?.title || entry.data.title;
+---
+
+<BaseLayout title={`${title} - Квазар`} description={entry.data.excerpt || ''}>
+  <Breadcrumbs
+    items={[
+      { title: 'Главная', href: '/' },
+      { title: 'Новости', href: '/novosti/' },
+      { title: entry.data.title, href: `/novosti/${entry.slug}/` },
+    ]}
+  />
+  <article class="max-w-3xl">
+    <h1 class="text-2xl font-bold text-brand-primary-900 mb-2">{entry.data.title}</h1>
+    {entry.data.date && (
+      <time class="block text-sm text-slate-500 mb-6" datetime={entry.data.date.toISOString()}>
+        {entry.data.date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+    )}
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

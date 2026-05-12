@@ -12,6 +12,26 @@ interface Props {
 const { title, description = 'Квазар. Подвесные потолки, теплоизоляция, OSB, Vetonit и гипсокартон в Санкт-Петербурге.', image } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://kvazarcomp.ru').toString();
 const ogImage = image ? new URL(image, Astro.site ?? 'https://kvazarcomp.ru').toString() : undefined;
+
+const orgJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Квазар',
+  url: 'https://kvazarcomp.ru',
+  logo: 'https://kvazarcomp.ru/images/logo.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+7 (812) 457-21-06',
+    contactType: 'sales',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Митрофаньевское шоссе, д.17 к.2Б',
+    addressLocality: 'Санкт-Петербург',
+    postalCode: '198095',
+    addressCountry: 'RU',
+  },
+});
 ---
 
 <!doctype html>
@@ -29,10 +49,14 @@ const ogImage = image ? new URL(image, Astro.site ?? 'https://kvazarcomp.ru').to
     <meta property="og:url" content={canonical} />
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={orgJsonLd} />
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-2 focus:bg-white focus:text-brand-primary-800">
+      Перейти к содержимому
+    </a>
     <Header />
-    <main class="flex-1 container py-8">
+    <main id="main-content" class="flex-1 container py-8">
       <slot />
     </main>
     <Footer />

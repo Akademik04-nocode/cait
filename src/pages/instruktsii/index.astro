@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const instructions = allArticles.filter((a) =>
+  a.data.sourceUrl?.includes('instruktsii_po_montazhu')
+);
+---
+
+<BaseLayout
+  title="Инструкции по монтажу - Квазар"
+  description="Инструкции по монтажу подвесных потолков и строительных материалов."
+>
+  <Breadcrumbs items={[{ title: 'Главная', href: '/' }, { title: 'Инструкции', href: '/instruktsii/' }]} />
+  <h1 class="text-2xl font-bold text-brand-primary-900 mb-6">Инструкции по монтажу</h1>
+  <div class="space-y-6">
+    {instructions.length > 0 ? (
+      instructions.map((entry) => (
+        <article class="rounded-lg border border-slate-200 bg-white p-5 hover:shadow-sm transition">
+          <a href={`/stati/${entry.slug}/`} class="block">
+            <h2 class="text-lg font-semibold text-brand-primary-800 hover:text-brand-accent-600">
+              {entry.data.title}
+            </h2>
+            {entry.data.excerpt && (
+              <p class="mt-2 text-sm text-slate-600">{entry.data.excerpt}</p>
+            )}
+          </a>
+        </article>
+      ))
+    ) : (
+      <p class="text-slate-600">Инструкции будут добавлены позже.</p>
+    )}
+  </div>
+</BaseLayout>

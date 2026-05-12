@@ -1,0 +1,23 @@
+{
+  "scrapedAt": "2026-05-11T22:34:08.676Z",
+  "urls_total": 278,
+  "urls_processed": 249,
+  "urls_failed": 29,
+  "products_count": 114,
+  "categories_count": 27,
+  "brands_count": 26,
+  "news_count": 4,
+  "objects_count": 4,
+  "articles_count": 10,
+  "certificates_count": 2,
+  "images_downloaded": 34,
+  "images_failed": 427,
+  "lists_skipped": 12,
+  "other_skipped": 3,
+  "cli": {
+    "limit": null,
+    "only": null,
+    "refresh": false,
+    "skipImages": false
+  }
+}

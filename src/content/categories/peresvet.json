@@ -1,0 +1,21 @@
+{
+  "slug": "peresvet",
+  "title": "Пересвет",
+  "parent": "potolki_i_steni",
+  "description": "<div class=\"full_description  mgt15 mgb20\">\n\t\t\n\t</div>",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Потолки и стены",
+      "href": "/proizvoditeli/potolki_i_steni/"
+    }
+  ],
+  "seo": {
+    "title": "Пересвет"
+  },
+  "sourceUrl": "http://kvazarcomp.ru/proizvoditeli/potolki_i_steni/peresvet/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "ventatec_perfomance_t24_high",
+  "title": "VENTATEC Perfomance T-24 High - КВАЗАР",
+  "h1": "Подвесная система VENTATEC Perfomance T-24 High",
+  "description": "<div class=\"tovar-description\" itemprop=\"description\">\n\t<h2>Описание</h2>\n\t<p><img src=\"/images/resources/catalog/VENTATEC_T-24_High_Kvazar.png\" alt=\"Подвесная система Ventatec T-24 High\" width=\"934\" height=\"1254\"></p>\n<p><img src=\"/resources/catalog/VENTATEC_T-24_High2_Kvazar.png\" alt=\"Подвесная система VentatecT-24 High\" width=\"934\" height=\"1254\"></p>\n</div>",
+  "specs": [
+    {
+      "name": "Производитель",
+      "value": "AMF VENTATEC®"
+    },
+    {
+      "name": "Размер панели",
+      "value": "3600*24*38мм 1200*24*38 мм 600*24*38 мм"
+    },
+    {
+      "name": "Упаковка",
+      "value": "20/60/60"
+    }
+  ],
+  "priceLabel": "договорная р.",
+  "priceValue": null,
+  "images": [],
+  "gallery": [],
+  "category": "potolki_i_steni/podvesnie_sistemi",
+  "brand": "ventatek",
+  "breadcrumbs": [
+    {
+      "title": "Главная",
+      "href": "/"
+    },
+    {
+      "title": "Каталог",
+      "href": "/katalog/"
+    },
+    {
+      "title": "Потолки и стены",
+      "href": "/katalog/potolki_i_steni/"
+    },
+    {
+      "title": "Подвесные системы",
+      "href": "/katalog/potolki_i_steni/podvesnie_sistemi/"
+    },
+    {
+      "title": "AMF VENTATEC®",
+      "href": "/katalog/potolki_i_steni/podvesnie_sistemi/ventatek/"
+    }
+  ],
+  "seo": {
+    "title": "VENTATEC Perfomance T-24 High - КВАЗАР",
+    "description": "Подвесная система VENTATEC Perfomance T-24 High.Технические характеристики.Фото.Область применения.",
+    "keywords": "ventatec, ventatec t24, ventatec amf knauf, подвесной системы ventatec, ventatec цена, ventatec knauf,VENTATEC Perfomance T-24 High, knauf amf ventatec"
+  },
+  "sourceUrl": "http://kvazarcomp.ru/katalog/potolki_i_steni/podvesnie_sistemi/ventatek/ventatec_perfomance_t24_high/",
+  "scrapedAt": "2026-05-11T22:34:08.676Z"
+}
